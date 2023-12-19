@@ -3,11 +3,10 @@ defmodule PayPal.Mixfile do
 
   def project do
     [
-      app: :pay_pal,
-      version: "0.0.2",
+      app: :ex_paypal,
+      version: "0.1.0",
       elixir: "~> 1.4",
-      build_embedded: Application.get_env(:pay_pal, :environment) == :prod,
-      start_permanent: Application.get_env(:pay_pal, :environment) == :prod,
+      start_permanent: Mix.env() == :prod,
       description: description(),
       package: package(),
       test_coverage: [tool: ExCoveralls],

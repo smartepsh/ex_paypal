@@ -20,7 +20,7 @@ defmodule PayPal.Config do
 
   Example config.exs sample:
 
-  config :pay_pal,
+  config :ex_paypal,
     client_id: "CLIENT_ID",
     client_secret: "CLIENT_SECRET"
 
@@ -35,7 +35,7 @@ defmodule PayPal.Config do
       true ->
         %{client_id: System.get_env("PAYPAL_CLIENT_ID"), client_secret: System.get_env("PAYPAL_CLIENT_SECRET")}
       _ ->
-        %{client_id: Application.get_env(:pay_pal, :client_id), client_secret: Application.get_env(:pay_pal, :client_secret)}
+        %{client_id: Application.get_env(:ex_paypal, :client_id), client_secret: Application.get_env(:ex_paypal, :client_secret)}
     end
   end
 end
