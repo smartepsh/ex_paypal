@@ -1,4 +1,8 @@
 defmodule PayPal.Token.Refresher do
+  @moduledoc """
+  Do request token periodically
+  """
+
   use GenServer
   require Logger
 

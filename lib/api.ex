@@ -132,8 +132,7 @@ defmodule PayPal.API do
       {:ok, %{status_code: 400}} ->
         {:error, :malformed_request}
 
-      {:ok, %{body: body}} = resp ->
-        IO.inspect(resp)
+      {:ok, %{body: body}} ->
         {:error, body}
 
       _ ->
@@ -183,8 +182,7 @@ defmodule PayPal.API do
       {:ok, %{status_code: 400}} ->
         {:error, :malformed_request}
 
-      {:ok, %{body: body}} = resp ->
-        IO.inspect(resp)
+      {:ok, %{body: body}} ->
         {:error, body}
 
       _ ->
