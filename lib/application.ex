@@ -8,7 +8,7 @@ defmodule PayPal.Application do
     children =
       if Application.get_env(:ex_paypal, :environment) == :test,
         do: [],
-        else: []
+        else: [PayPal.Token.Refresher]
 
     opts = [strategy: :one_for_one, name: PayPal.Supervisor]
     Supervisor.start_link(children, opts)
