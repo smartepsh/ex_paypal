@@ -41,62 +41,62 @@ defmodule PayPalBillingAgreementsTest do
       assert resp ==
                {:ok,
                 %{
-                  description:
+                  "description" =>
                     "Monthly subscription with a regular monthly payment definition and two-month trial payment definition.",
-                  links: [
+                  "links" => [
                     %{
-                      href:
+                      "href" =>
                         "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-4U6216316A218783E",
-                      method: "REDIRECT",
-                      rel: "approval_url"
+                      "method" => "REDIRECT",
+                      "rel" => "approval_url"
                     },
                     %{
-                      href:
+                      "href" =>
                         "https://api.sandbox.paypal.com/v1/payments/billing-agreements/EC-4U6216316A218783E/agreement-execute",
-                      method: "POST",
-                      rel: "execute"
+                      "method" => "POST",
+                      "rel" => "execute"
                     }
                   ],
-                  name: "Magazine Subscription",
-                  plan: %{
-                    description: "Plan with regular and trial payment definitions.",
-                    id: "P-3C560437P9994340RZAYE2OY",
-                    merchant_preferences: %{
-                      auto_bill_amount: "YES",
-                      cancel_url: "http://www.cancel.com",
-                      initial_fail_amount_action: "CONTINUE",
-                      max_fail_attempts: "0",
-                      return_url: "http://www.paypal.com",
-                      setup_fee: %{currency: "USD", value: "1"}
+                  "name" => "Magazine Subscription",
+                  "plan" => %{
+                    "description" => "Plan with regular and trial payment definitions.",
+                    "id" => "P-3C560437P9994340RZAYE2OY",
+                    "merchant_preferences" => %{
+                      "auto_bill_amount" => "YES",
+                      "cancel_url" => "http://www.cancel.com",
+                      "initial_fail_amount_action" => "CONTINUE",
+                      "max_fail_attempts" => "0",
+                      "return_url" => "http://www.paypal.com",
+                      "setup_fee" => %{"currency" => "USD", "value" => "1"}
                     },
-                    name: "Plan with Regular and Trial Payment Definitions",
-                    payment_definitions: [
+                    "name" => "Plan with Regular and Trial Payment Definitions",
+                    "payment_definitions" => [
                       %{
-                        amount: %{currency: "USD", value: "100"},
-                        charge_models: [
+                        "amount" => %{"currency" => "USD", "value" => "100"},
+                        "charge_models" => [
                           %{
-                            amount: %{currency: "USD", value: "12"},
-                            id: "CHM-8K016037XD486311FZAYE2OY",
-                            type: "TAX"
+                            "amount" => %{"currency" => "USD", "value" => "12"},
+                            "id" => "CHM-8K016037XD486311FZAYE2OY",
+                            "type" => "TAX"
                           },
                           %{
-                            amount: %{currency: "USD", value: "10"},
-                            id: "CHM-0G830639S6488053MZAYE2OY",
-                            type: "SHIPPING"
+                            "amount" => %{"currency" => "USD", "value" => "10"},
+                            "id" => "CHM-0G830639S6488053MZAYE2OY",
+                            "type" => "SHIPPING"
                           }
                         ],
-                        cycles: "12",
-                        frequency: "Month",
-                        frequency_interval: "2",
-                        id: "PD-88G018863E918211XZAYE2OY",
-                        name: "Regular payment definition",
-                        type: "REGULAR"
+                        "cycles" => "12",
+                        "frequency" => "Month",
+                        "frequency_interval" => "2",
+                        "id" => "PD-88G018863E918211XZAYE2OY",
+                        "name" => "Regular payment definition",
+                        "type" => "REGULAR"
                       }
                     ],
-                    state: "ACTIVE",
-                    type: "FIXED"
+                    "state" => "ACTIVE",
+                    "type" => "FIXED"
                   },
-                  start_date: "2017-12-22T09:13:49Z"
+                  "start_date" => "2017-12-22T09:13:49Z"
                 }}
     end
   end
@@ -135,79 +135,79 @@ defmodule PayPalBillingAgreementsTest do
       assert resp ==
                {:ok,
                 %{
-                  agreement_details: %{
-                    cycles_completed: "0",
-                    cycles_remaining: "12",
-                    failed_payment_count: "0",
-                    final_payment_date: "2019-10-22T10:00:00Z",
-                    last_payment_amount: %{value: "1.00"},
-                    last_payment_date: "2017-05-07T07:53:31Z",
-                    next_billing_date: "2017-12-22T10:00:00Z",
-                    outstanding_balance: %{value: "0.00"}
+                  "agreement_details" => %{
+                    "cycles_completed" => "0",
+                    "cycles_remaining" => "12",
+                    "failed_payment_count" => "0",
+                    "final_payment_date" => "2019-10-22T10:00:00Z",
+                    "last_payment_amount" => %{"value" => "1.00"},
+                    "last_payment_date" => "2017-05-07T07:53:31Z",
+                    "next_billing_date" => "2017-12-22T10:00:00Z",
+                    "outstanding_balance" => %{"value" => "0.00"}
                   },
-                  description:
+                  "description" =>
                     "Monthly subscription with a regular monthly payment definition and two-month trial payment definition.",
-                  id: "I-YLRFBEKMH34T",
-                  links: [
+                  "id" => "I-YLRFBEKMH34T",
+                  "links" => [
                     %{
-                      href:
+                      "href" =>
                         "https://api.sandbox.paypal.com/v1/payments/billing-agreements/I-YLRFBEKMH34T",
-                      method: "GET",
-                      rel: "self"
+                      "method" => "GET",
+                      "rel" => "self"
                     }
                   ],
-                  payer: %{
-                    payer_info: %{
-                      email: "tedelex06@gmail.com",
-                      first_name: "Zen",
-                      last_name: "Savona",
-                      payer_id: "TM63YY9GU9Q8C",
-                      shipping_address: %{
-                        city: "Quimby",
-                        country_code: "US",
-                        line1: "751235 Stout Drive",
-                        line2: "0976249 Elizabeth Court",
-                        postal_code: "51049",
-                        recipient_name: "Zen Savona",
-                        state: "IA"
+                  "payer" => %{
+                    "payer_info" => %{
+                      "email" => "tedelex06@gmail.com",
+                      "first_name" => "Zen",
+                      "last_name" => "Savona",
+                      "payer_id" => "TM63YY9GU9Q8C",
+                      "shipping_address" => %{
+                        "city" => "Quimby",
+                        "country_code" => "US",
+                        "line1" => "751235 Stout Drive",
+                        "line2" => "0976249 Elizabeth Court",
+                        "postal_code" => "51049",
+                        "recipient_name" => "Zen Savona",
+                        "state" => "IA"
                       }
                     },
-                    payment_method: "paypal",
-                    status: "unverified"
+                    "payment_method" => "paypal",
+                    "status" => "unverified"
                   },
-                  plan: %{
-                    currency_code: "USD",
-                    links: [],
-                    merchant_preferences: %{
-                      auto_bill_amount: "YES",
-                      max_fail_attempts: "0",
-                      setup_fee: %{value: "1.00"}
+                  "plan" => %{
+                    "currency_code" => "USD",
+                    "links" => [],
+                    "merchant_preferences" => %{
+                      "auto_bill_amount" => "YES",
+                      "max_fail_attempts" => "0",
+                      "setup_fee" => %{"value" => "1.00"}
                     },
-                    payment_definitions: [
+                    "payment_definitions" => [
                       %{
-                        amount: %{value: "100.00"},
-                        charge_models: [
-                          %{amount: %{value: "12.00"}, type: "TAX"},
-                          %{amount: %{value: "10.00"}, type: "SHIPPING"}
+                        "amount" => %{"value" => "100.00"},
+                        "charge_models" => [
+                          %{"amount" => %{"value" => "12.00"}, "type" => "TAX"},
+                          %{"amount" => %{"value" => "10.00"}, "type" => "SHIPPING"}
                         ],
-                        cycles: "12",
-                        frequency: "Month",
-                        frequency_interval: "2",
-                        type: "REGULAR"
+                        "cycles" => "12",
+                        "frequency" => "Month",
+                        "frequency_interval" => "2",
+                        "type" => "REGULAR"
                       }
                     ]
                   },
-                  shipping_address: %{
-                    city: "Quimby",
-                    country_code: "US",
-                    line1: "751235 Stout Drive",
-                    line2: "0976249 Elizabeth Court",
-                    postal_code: "51049",
-                    recipient_name: "Zen Savona",
-                    state: "IA"
+                  "shipping_address" => %{
+                    "city" => "Quimby",
+                    "country_code" => "US",
+                    "line1" => "751235 Stout Drive",
+                    "line2" => "0976249 Elizabeth Court",
+                    "postal_code" => "51049",
+                    "recipient_name" => "Zen Savona",
+                    "state" => "IA"
                   },
-                  start_date: "2017-12-22T08:00:00Z",
-                  state: "Active"
+                  "start_date" => "2017-12-22T08:00:00Z",
+                  "state" => "Active"
                 }}
     end
   end
@@ -260,101 +260,107 @@ defmodule PayPalBillingAgreementsTest do
       assert resp ==
                {:ok,
                 %{
-                  agreement_details: %{
-                    cycles_completed: "0",
-                    cycles_remaining: "12",
-                    failed_payment_count: "0",
-                    final_payment_date: "2019-10-22T10:00:00Z",
-                    last_payment_amount: %{currency: "USD", value: "1.00"},
-                    last_payment_date: "2017-05-07T07:53:31Z",
-                    next_billing_date: "2017-12-22T10:00:00Z",
-                    outstanding_balance: %{currency: "USD", value: "0.00"}
+                  "agreement_details" => %{
+                    "cycles_completed" => "0",
+                    "cycles_remaining" => "12",
+                    "failed_payment_count" => "0",
+                    "final_payment_date" => "2019-10-22T10:00:00Z",
+                    "last_payment_amount" => %{"currency" => "USD", "value" => "1.00"},
+                    "last_payment_date" => "2017-05-07T07:53:31Z",
+                    "next_billing_date" => "2017-12-22T10:00:00Z",
+                    "outstanding_balance" => %{"currency" => "USD", "value" => "0.00"}
                   },
-                  description:
+                  "description" =>
                     "Monthly subscription with a regular monthly payment definition and two-month trial payment definition.",
-                  id: "I-YLRFBEKMH34T",
-                  links: [
+                  "id" => "I-YLRFBEKMH34T",
+                  "links" => [
                     %{
-                      href:
+                      "href" =>
                         "https://api.sandbox.paypal.com/v1/payments/billing-agreements/I-YLRFBEKMH34T/suspend",
-                      method: "POST",
-                      rel: "suspend"
+                      "method" => "POST",
+                      "rel" => "suspend"
                     },
                     %{
-                      href:
+                      "href" =>
                         "https://api.sandbox.paypal.com/v1/payments/billing-agreements/I-YLRFBEKMH34T/re-activate",
-                      method: "POST",
-                      rel: "re_activate"
+                      "method" => "POST",
+                      "rel" => "re_activate"
                     },
                     %{
-                      href:
+                      "href" =>
                         "https://api.sandbox.paypal.com/v1/payments/billing-agreements/I-YLRFBEKMH34T/cancel",
-                      method: "POST",
-                      rel: "cancel"
+                      "method" => "POST",
+                      "rel" => "cancel"
                     },
                     %{
-                      href:
+                      "href" =>
                         "https://api.sandbox.paypal.com/v1/payments/billing-agreements/I-YLRFBEKMH34T/bill-balance",
-                      method: "POST",
-                      rel: "self"
+                      "method" => "POST",
+                      "rel" => "self"
                     },
                     %{
-                      href:
+                      "href" =>
                         "https://api.sandbox.paypal.com/v1/payments/billing-agreements/I-YLRFBEKMH34T/set-balance",
-                      method: "POST",
-                      rel: "self"
+                      "method" => "POST",
+                      "rel" => "self"
                     }
                   ],
-                  payer: %{
-                    payer_info: %{
-                      email: "tedelex06@gmail.com",
-                      first_name: "Zen",
-                      last_name: "Savona",
-                      payer_id: "TM63YY9GU9Q8C",
-                      shipping_address: %{
-                        city: "Quimby",
-                        country_code: "US",
-                        line1: "751235 Stout Drive",
-                        line2: "0976249 Elizabeth Court",
-                        postal_code: "51049",
-                        recipient_name: "Zen Savona",
-                        state: "IA"
+                  "payer" => %{
+                    "payer_info" => %{
+                      "email" => "tedelex06@gmail.com",
+                      "first_name" => "Zen",
+                      "last_name" => "Savona",
+                      "payer_id" => "TM63YY9GU9Q8C",
+                      "shipping_address" => %{
+                        "city" => "Quimby",
+                        "country_code" => "US",
+                        "line1" => "751235 Stout Drive",
+                        "line2" => "0976249 Elizabeth Court",
+                        "postal_code" => "51049",
+                        "recipient_name" => "Zen Savona",
+                        "state" => "IA"
                       }
                     },
-                    payment_method: "paypal",
-                    status: "unverified"
+                    "payment_method" => "paypal",
+                    "status" => "unverified"
                   },
-                  plan: %{
-                    merchant_preferences: %{
-                      auto_bill_amount: "YES",
-                      max_fail_attempts: "0",
-                      setup_fee: %{currency: "USD", value: "1.00"}
+                  "plan" => %{
+                    "merchant_preferences" => %{
+                      "auto_bill_amount" => "YES",
+                      "max_fail_attempts" => "0",
+                      "setup_fee" => %{"currency" => "USD", "value" => "1.00"}
                     },
-                    payment_definitions: [
+                    "payment_definitions" => [
                       %{
-                        amount: %{currency: "USD", value: "100.00"},
-                        charge_models: [
-                          %{amount: %{currency: "USD", value: "12.00"}, type: "TAX"},
-                          %{amount: %{currency: "USD", value: "10.00"}, type: "SHIPPING"}
+                        "amount" => %{"currency" => "USD", "value" => "100.00"},
+                        "charge_models" => [
+                          %{
+                            "amount" => %{"currency" => "USD", "value" => "12.00"},
+                            "type" => "TAX"
+                          },
+                          %{
+                            "amount" => %{"currency" => "USD", "value" => "10.00"},
+                            "type" => "SHIPPING"
+                          }
                         ],
-                        cycles: "12",
-                        frequency: "Month",
-                        frequency_interval: "2",
-                        type: "REGULAR"
+                        "cycles" => "12",
+                        "frequency" => "Month",
+                        "frequency_interval" => "2",
+                        "type" => "REGULAR"
                       }
                     ]
                   },
-                  shipping_address: %{
-                    city: "Quimby",
-                    country_code: "US",
-                    line1: "751235 Stout Drive",
-                    line2: "0976249 Elizabeth Court",
-                    postal_code: "51049",
-                    recipient_name: "Zen Savona",
-                    state: "IA"
+                  "shipping_address" => %{
+                    "city" => "Quimby",
+                    "country_code" => "US",
+                    "line1" => "751235 Stout Drive",
+                    "line2" => "0976249 Elizabeth Court",
+                    "postal_code" => "51049",
+                    "recipient_name" => "Zen Savona",
+                    "state" => "IA"
                   },
-                  start_date: "2017-12-22T08:00:00Z",
-                  state: "Active"
+                  "start_date" => "2017-12-22T08:00:00Z",
+                  "state" => "Active"
                 }}
     end
   end
@@ -393,25 +399,25 @@ defmodule PayPalBillingAgreementsTest do
                {:ok,
                 [
                   %{
-                    payer_email: "",
-                    payer_name: "Zen Savona",
-                    status: "Created",
-                    time_stamp: "2017-05-09T00:22:54Z",
-                    time_zone: "GMT",
-                    transaction_id: "I-5TCE8UV35GT7",
-                    transaction_type: "Recurring Payment"
+                    "payer_email" => "",
+                    "payer_name" => "Zen Savona",
+                    "status" => "Created",
+                    "time_stamp" => "2017-05-09T00:22:54Z",
+                    "time_zone" => "GMT",
+                    "transaction_id" => "I-5TCE8UV35GT7",
+                    "transaction_type" => "Recurring Payment"
                   },
                   %{
-                    amount: %{currency: "USD", value: "1.00"},
-                    fee_amount: %{currency: "USD", value: "-0.33"},
-                    net_amount: %{currency: "USD", value: "0.67"},
-                    payer_email: "tedelex06@gmail.com",
-                    payer_name: "Zen Savona",
-                    status: "Completed",
-                    time_stamp: "2017-05-09T00:22:58Z",
-                    time_zone: "GMT",
-                    transaction_id: "12D08841828909040",
-                    transaction_type: "Recurring Payment"
+                    "amount" => %{"currency" => "USD", "value" => "1.00"},
+                    "fee_amount" => %{"currency" => "USD", "value" => "-0.33"},
+                    "net_amount" => %{"currency" => "USD", "value" => "0.67"},
+                    "payer_email" => "tedelex06@gmail.com",
+                    "payer_name" => "Zen Savona",
+                    "status" => "Completed",
+                    "time_stamp" => "2017-05-09T00:22:58Z",
+                    "time_zone" => "GMT",
+                    "transaction_id" => "12D08841828909040",
+                    "transaction_type" => "Recurring Payment"
                   }
                 ]}
     end

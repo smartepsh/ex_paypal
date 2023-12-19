@@ -1,5 +1,6 @@
-defmodule PayPalPayoutsTest do
+defmodule PayPal.Payments.PayoutsTest do
   use ExUnit.Case
+
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
 
   setup_all do
@@ -68,13 +69,14 @@ defmodule PayPalPayoutsTest do
 
       assert {:ok,
               %{
-                batch_header: %{
-                  batch_status: "PENDING",
-                  payout_batch_id: "5UXD2E8A7EBQJ",
-                  sender_batch_header: %{
-                    email_message: "You have received a payout! Thanks for using our service!",
-                    email_subject: "You have a payout!",
-                    sender_batch_id: "Payouts_2018_100008"
+                "batch_header" => %{
+                  "batch_status" => "PENDING",
+                  "payout_batch_id" => "5UXD2E8A7EBQJ",
+                  "sender_batch_header" => %{
+                    "email_message" =>
+                      "You have received a payout! Thanks for using our service!",
+                    "email_subject" => "You have a payout!",
+                    "sender_batch_id" => "Payouts_2018_100008"
                   }
                 }
               }} = PayPal.Payments.Payouts.create_batch(header, payout_list)
@@ -90,7 +92,12 @@ defmodule PayPalPayoutsTest do
   test "get payouts batch" do
     use_cassette "payouts_get_payouts_batch", custom: true do
       assert {:ok,
-              %{batch_header: %{payout_batch_id: "FYXMPQTX4JC9N", batch_status: "PROCESSING"}}} =
+              %{
+                "batch_header" => %{
+                  "payout_batch_id" => "FYXMPQTX4JC9N",
+                  "batch_status" => "PROCESSING"
+                }
+              }} =
                PayPal.Payments.Payouts.get_payouts_batch("FYXMPQTX4JC9N")
     end
   end
@@ -103,7 +110,8 @@ defmodule PayPalPayoutsTest do
 
   test "get payout" do
     use_cassette "payouts_get_payout", custom: true do
-      assert {:ok, %{payout_item_id: "8AELMXH8UB2P8", transaction_id: "0C413693MN970190K"}} =
+      assert {:ok,
+              %{"payout_item_id" => "8AELMXH8UB2P8", "transaction_id" => "0C413693MN970190K"}} =
                PayPal.Payments.Payouts.get_payout("8AELMXH8UB2P8")
     end
   end
@@ -118,9 +126,9 @@ defmodule PayPalPayoutsTest do
     use_cassette "payouts_cancel", custom: true do
       assert {:ok,
               %{
-                payout_item_id: "5KUDKLF8SDC7S",
-                transaction_id: "1DG93452WK758815H",
-                transaction_status: "RETURNED"
+                "payout_item_id" => "5KUDKLF8SDC7S",
+                "transaction_id" => "1DG93452WK758815H",
+                "transaction_status" => "RETURNED"
               }} = PayPal.Payments.Payouts.cancel("5KUDKLF8SDC7S")
     end
   end
