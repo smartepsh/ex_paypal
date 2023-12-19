@@ -25,15 +25,19 @@ defmodule PayPal.Billing.Plans do
 
 
   """
-  @spec list :: {:ok, map | :not_found | :no_content } | {:error, :unauthorised | :bad_network | any}
+  @spec list ::
+          {:ok, map | :not_found | :no_content} | {:error, :unauthorised | :bad_network | any}
   def list do
     case PayPal.API.get("payments/billing-plans") do
       {:ok, :no_content} ->
         {:ok, []}
+
       {:ok, :not_found} ->
         {:ok, nil}
+
       {:ok, %{plans: plans}} ->
         {:ok, plans}
+
       error ->
         error
     end
@@ -61,13 +65,16 @@ defmodule PayPal.Billing.Plans do
             type: "FIXED", update_time: "2017-05-02T08:04:20.411Z"}}
 
   """
-  @spec show(String.t) :: {:ok, map | :not_found | :no_content } | {:error, :unauthorised | :bad_network | any}
+  @spec show(String.t()) ::
+          {:ok, map | :not_found | :no_content} | {:error, :unauthorised | :bad_network | any}
   def show(id) do
     case PayPal.API.get("payments/billing-plans/#{id}") do
       {:ok, :not_found} ->
         {:ok, nil}
+
       {:ok, plan} ->
         {:ok, plan}
+
       error ->
         error
     end
@@ -140,43 +147,50 @@ defmodule PayPal.Billing.Plans do
 
   """
   @spec create(%{
-    name: String.t,
-    description: String.t,
-    type: String.t,
-    payment_definitions: [%{
-      name: String.t,
-      type: String.t,
-      frequency_interval: String.t,
-      frequency: String.t,
-      cycles: String.t,
-      amount: %{
-        value: String.t,
-        currency: String.t
-      },
-      charge_models: [%{
-        type: String.t,
-        amount: %{
-          value: String.t,
-          currency: String.t
-        }
-      }],
-      merchant_preferences: %{
-        setup_fee: %{
-          amount: String.t,
-          currency: String.t
-        },
-        return_url: String.t,
-        cancel_url: String.t,
-        auto_bill_amount: String.t,
-        initial_fail_amount_action: String.t,
-        max_fail_attempts: String.t
-      }
-    }],
-  }) :: {:ok, map | :not_found | :no_content | nil} | {:error, :unauthorised | :bad_network | any}
+          name: String.t(),
+          description: String.t(),
+          type: String.t(),
+          payment_definitions: [
+            %{
+              name: String.t(),
+              type: String.t(),
+              frequency_interval: String.t(),
+              frequency: String.t(),
+              cycles: String.t(),
+              amount: %{
+                value: String.t(),
+                currency: String.t()
+              },
+              charge_models: [
+                %{
+                  type: String.t(),
+                  amount: %{
+                    value: String.t(),
+                    currency: String.t()
+                  }
+                }
+              ],
+              merchant_preferences: %{
+                setup_fee: %{
+                  amount: String.t(),
+                  currency: String.t()
+                },
+                return_url: String.t(),
+                cancel_url: String.t(),
+                auto_bill_amount: String.t(),
+                initial_fail_amount_action: String.t(),
+                max_fail_attempts: String.t()
+              }
+            }
+          ]
+        }) ::
+          {:ok, map | :not_found | :no_content | nil}
+          | {:error, :unauthorised | :bad_network | any}
   def create(plan) do
     case PayPal.API.post("payments/billing-plans", plan) do
       {:ok, data} ->
         {:ok, data}
+
       error ->
         error
     end
@@ -220,11 +234,14 @@ defmodule PayPal.Billing.Plans do
 
 
   """
-  @spec update(String.t, map) :: {:ok, map | nil | :not_found | :no_content} | {:error, :unauthorised | :bad_network | any}
+  @spec update(String.t(), map) ::
+          {:ok, map | nil | :not_found | :no_content}
+          | {:error, :unauthorised | :bad_network | any}
   def update(id, plan) do
     case PayPal.API.patch("payments/billing-plans/#{id}", plan) do
       {:ok, data} ->
         {:ok, data}
+
       error ->
         error
     end

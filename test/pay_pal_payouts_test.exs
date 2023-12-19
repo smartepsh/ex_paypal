@@ -9,7 +9,12 @@ defmodule PayPalPayoutsTest do
     ExVCR.Config.filter_request_headers("Authorization")
     ExVCR.Config.filter_sensitive_data("basic_auth\" =>\".+?\"", "basic_auth\" =>\"<REMOVED>\"")
     ExVCR.Config.filter_sensitive_data("app_id\" =>\".+?\"", "app_id\" =>\"<REMOVED>\"")
-    ExVCR.Config.filter_sensitive_data("access_token\" =>\".+?\"", "access_token\" =>\"<REMOVED>\"")
+
+    ExVCR.Config.filter_sensitive_data(
+      "access_token\" =>\".+?\"",
+      "access_token\" =>\"<REMOVED>\""
+    )
+
     :ok
   end
 
@@ -20,6 +25,7 @@ defmodule PayPalPayoutsTest do
         "email_subject" => "You have a payout!",
         "email_message" => "You have received a payout! Thanks for using our service!"
       }
+
       payout_list = [
         %{
           "recipient_type" => "EMAIL",
@@ -61,10 +67,17 @@ defmodule PayPalPayoutsTest do
       ]
 
       assert {:ok,
-                  %{
-                    batch_header: %{batch_status: "PENDING", payout_batch_id: "5UXD2E8A7EBQJ", sender_batch_header: %{email_message: "You have received a payout! Thanks for using our service!", email_subject: "You have a payout!", sender_batch_id: "Payouts_2018_100008"}}
+              %{
+                batch_header: %{
+                  batch_status: "PENDING",
+                  payout_batch_id: "5UXD2E8A7EBQJ",
+                  sender_batch_header: %{
+                    email_message: "You have received a payout! Thanks for using our service!",
+                    email_subject: "You have a payout!",
+                    sender_batch_id: "Payouts_2018_100008"
                   }
-              } = PayPal.Payments.Payouts.create_batch(header, payout_list)
+                }
+              }} = PayPal.Payments.Payouts.create_batch(header, payout_list)
     end
   end
 
@@ -76,7 +89,9 @@ defmodule PayPalPayoutsTest do
 
   test "get payouts batch" do
     use_cassette "payouts_get_payouts_batch", custom: true do
-      assert { :ok, %{ batch_header: %{ payout_batch_id: "FYXMPQTX4JC9N", batch_status: "PROCESSING"} } } = PayPal.Payments.Payouts.get_payouts_batch("FYXMPQTX4JC9N")
+      assert {:ok,
+              %{batch_header: %{payout_batch_id: "FYXMPQTX4JC9N", batch_status: "PROCESSING"}}} =
+               PayPal.Payments.Payouts.get_payouts_batch("FYXMPQTX4JC9N")
     end
   end
 
@@ -88,7 +103,8 @@ defmodule PayPalPayoutsTest do
 
   test "get payout" do
     use_cassette "payouts_get_payout", custom: true do
-      assert {:ok, %{ payout_item_id: "8AELMXH8UB2P8", transaction_id: "0C413693MN970190K" }} = PayPal.Payments.Payouts.get_payout("8AELMXH8UB2P8")
+      assert {:ok, %{payout_item_id: "8AELMXH8UB2P8", transaction_id: "0C413693MN970190K"}} =
+               PayPal.Payments.Payouts.get_payout("8AELMXH8UB2P8")
     end
   end
 
@@ -100,19 +116,24 @@ defmodule PayPalPayoutsTest do
 
   test "cancel payout" do
     use_cassette "payouts_cancel", custom: true do
-      assert { :ok, %{ payout_item_id: "5KUDKLF8SDC7S", transaction_id: "1DG93452WK758815H", transaction_status: "RETURNED"}} = PayPal.Payments.Payouts.cancel("5KUDKLF8SDC7S")
+      assert {:ok,
+              %{
+                payout_item_id: "5KUDKLF8SDC7S",
+                transaction_id: "1DG93452WK758815H",
+                transaction_status: "RETURNED"
+              }} = PayPal.Payments.Payouts.cancel("5KUDKLF8SDC7S")
     end
   end
 
   test "cancel payout already claimed error" do
     use_cassette "payouts_cancel_already_claimed", custom: true do
-      assert {:error, :malformed_request } = PayPal.Payments.Payouts.cancel("YYKMVR2AVSVZ4")
+      assert {:error, :malformed_request} = PayPal.Payments.Payouts.cancel("YYKMVR2AVSVZ4")
     end
   end
 
   test "cancel payout 404 error" do
     use_cassette "payouts_cancel_notfound", custom: true do
-      assert { :ok, :not_found } = PayPal.Payments.Payouts.cancel("DOESNTEXIST")
+      assert {:ok, :not_found} = PayPal.Payments.Payouts.cancel("DOESNTEXIST")
     end
   end
 end

@@ -12,13 +12,13 @@ defmodule PayPal.Mixfile do
       test_coverage: [tool: ExCoveralls],
       deps: deps(),
       docs: [extras: ["README.md"], main: "readme"],
-      dialyzer: [plt_add_deps: :true]
+      dialyzer: [plt_add_deps: true]
     ]
   end
 
   def application do
     [
-      extra_applications: [:logger, :httpoison],
+      extra_applications: [],
       mod: {PayPal.Application, []}
     ]
   end
@@ -27,7 +27,7 @@ defmodule PayPal.Mixfile do
     [
       {:httpoison, "~> 0.13"},
       {:poison, "~> 3.1"},
-      {:oauth2, "~> 0.9"},
+      # {:oauth2, "~> 0.9"},
       {:exvcr, "~> 0.8", only: [:dev, :test]},
       {:ex_doc, "~> 0.15", only: [:dev, :docs]},
       {:excoveralls, "~> 0.6", only: [:dev, :test]},
@@ -48,8 +48,10 @@ defmodule PayPal.Mixfile do
       licenses: ["MIT"],
       keywords: ["Elixir", "PayPal", "REST", "Payments", "API"],
       maintainers: ["Zen Savona"],
-      links: %{"GitHub" => "https://github.com/zensavona/paypal",
-               "Docs" => "https://hexdocs.pm/paypal"}
+      links: %{
+        "GitHub" => "https://github.com/zensavona/paypal",
+        "Docs" => "https://hexdocs.pm/paypal"
+      }
     ]
   end
 end
