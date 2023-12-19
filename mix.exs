@@ -11,8 +11,7 @@ defmodule PayPal.Mixfile do
       package: package(),
       test_coverage: [tool: ExCoveralls],
       deps: deps(),
-      docs: [extras: ["README.md"], main: "readme"],
-      dialyzer: [plt_add_deps: true]
+      docs: [extras: ["README.md"], main: "readme"]
     ]
   end
 
@@ -25,13 +24,13 @@ defmodule PayPal.Mixfile do
 
   defp deps do
     [
-      {:httpoison, "~> 0.13"},
+      {:httpoison, "~> 2.0"},
       {:jason, "~> 1.4"},
       {:exvcr, "~> 0.8", only: [:dev, :test]},
       {:ex_doc, "~> 0.15", only: [:dev, :docs]},
       {:excoveralls, "~> 0.6", only: [:dev, :test]},
-      {:credo, "~> 0.7", only: :dev},
-      {:dialyxir, "~> 0.5", only: [:dev, :test], runtime: false}
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false}
     ]
   end
 
