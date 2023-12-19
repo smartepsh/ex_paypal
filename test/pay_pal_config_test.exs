@@ -12,5 +12,4 @@ defmodule PayPalConfigTest do
     System.put_env("PAYPAL_CLIENT_SECRET", "CLIENT_SECRET")
     assert PayPal.Config.get() == %{client_id: "CLIENT_ID", client_secret: "CLIENT_SECRET"}
   end
-
 end

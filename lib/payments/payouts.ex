@@ -36,7 +36,9 @@ defmodule PayPal.Payments.Payouts do
     iex> PayPal.Payments.Payouts.create_batch(batch_header, items)
     {:ok, batch_response}
   """
-  @spec create_batch(map, nonempty_list(map)) :: {:ok, map | :not_found | :no_content | nil} | {:error, :unauthorised | :bad_network | any}
+  @spec create_batch(map, nonempty_list(map)) ::
+          {:ok, map | :not_found | :no_content | nil}
+          | {:error, :unauthorised | :bad_network | any}
   def create_batch(batch_header, items) when is_map(batch_header) and is_list(items) do
     PayPal.API.post("payments/payouts", %{"sender_batch_header" => batch_header, "items" => items})
   end
@@ -127,7 +129,8 @@ defmodule PayPal.Payments.Payouts do
         ]
       }
   """
-  @spec get_payouts_batch(binary) :: {:ok, map | :not_found | :no_content } | {:error, :unauthorised | :bad_network | any}
+  @spec get_payouts_batch(binary) ::
+          {:ok, map | :not_found | :no_content} | {:error, :unauthorised | :bad_network | any}
   def get_payouts_batch(payout_batch_id) when is_binary(payout_batch_id) do
     PayPal.API.get("payments/payouts/#{payout_batch_id}")
   end
@@ -183,7 +186,8 @@ defmodule PayPal.Payments.Payouts do
     }
   }
   """
-  @spec get_payout(binary) :: {:ok, map | :not_found | :no_content } | {:error, :unauthorised | :bad_network | any}
+  @spec get_payout(binary) ::
+          {:ok, map | :not_found | :no_content} | {:error, :unauthorised | :bad_network | any}
   def get_payout(payout_id) when is_binary(payout_id) do
     PayPal.API.get("payments/payouts-item/#{payout_id}")
   end
@@ -245,7 +249,9 @@ defmodule PayPal.Payments.Payouts do
       }
     }
   """
-  @spec cancel(binary) :: {:ok, map | :not_found | :no_content | nil} | {:error, :unauthorised | :bad_network | any}
+  @spec cancel(binary) ::
+          {:ok, map | :not_found | :no_content | nil}
+          | {:error, :unauthorised | :bad_network | any}
   def cancel(payout_id) when is_binary(payout_id) do
     PayPal.API.post("payments/payouts-item/#{payout_id}/cancel", %{})
   end

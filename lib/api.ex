@@ -1,4 +1,6 @@
 defmodule PayPal.API do
+  require Logger
+
   @moduledoc """
   Documentation for PayPal.API. This module is about the base HTTP functionality
   """
@@ -25,16 +27,22 @@ defmodule PayPal.API do
   @spec get_oauth_token :: {:error, :unauthorised | :bad_network} | {:ok, {binary, integer}}
   def get_oauth_token do
     headers = %{"Content-Type" => "application/x-www-form-urlencoded"}
-    options = [hackney: [basic_auth: {PayPal.Config.get.client_id, PayPal.Config.get.client_secret}]]
+
+    options = [
+      hackney: [basic_auth: {PayPal.Config.get().client_id, PayPal.Config.get().client_secret}]
+    ]
+
     form = {:form, [grant_type: "client_credentials"]}
 
     case HTTPoison.post(base_url() <> "oauth2/token", form, headers, options) do
       {:ok, %{status_code: 401}} ->
         {:error, :unauthorised}
+
       {:ok, %{body: body, status_code: 200}} ->
         %{access_token: access_token, expires_in: expires_in} = Poison.decode!(body, keys: :atoms)
         {:ok, {access_token, expires_in}}
-      _->
+
+      _ ->
         {:error, :bad_network}
     end
   end
@@ -58,21 +66,28 @@ defmodule PayPal.API do
     {:ok, {"XXXXXXXXXXXXXX", 32000}}
 
   """
-  @spec get(String.t) :: {:ok, map | :not_found | :no_content } | {:error, :unauthorised | :bad_network | any}
+  @spec get(String.t()) ::
+          {:ok, map | :not_found | :no_content} | {:error, :unauthorised | :bad_network | any}
   def get(url) do
     case HTTPoison.get(base_url() <> url, headers()) do
       {:ok, %{status_code: 401}} ->
         {:error, :unauthorised}
+
       {:ok, %{body: body, status_code: 200}} ->
         {:ok, Poison.decode!(body, keys: :atoms)}
+
       {:ok, %{status_code: 404}} ->
         {:ok, :not_found}
+
       {:ok, %{status_code: 400}} ->
         {:ok, :not_found}
+
       {:ok, %{status_code: 204}} ->
         {:ok, :no_content}
-      {:ok, %{body: body}}->
+
+      {:ok, %{body: body}} ->
         {:error, body}
+
       _ ->
         {:error, :bad_network}
     end
@@ -97,25 +112,35 @@ defmodule PayPal.API do
     {:ok, {"XXXXXXXXXXXXXX", 32000}}
 
   """
-  @spec post(String.t, map | list | nil) :: {:ok, map | :not_found | :no_content | nil} | {:error, :unauthorised | :bad_network | any}
+  @spec post(String.t(), map | list | nil) ::
+          {:ok, map | :not_found | :no_content | nil}
+          | {:error, :unauthorised | :bad_network | any}
   def post(url, data) do
     {:ok, data} = Poison.encode(data)
+
     case HTTPoison.post(base_url() <> url, data, headers()) do
       {:ok, %{status_code: 401}} ->
         {:error, :unauthorised}
+
       {:ok, %{body: body, status_code: 200}} ->
         {:ok, Poison.decode!(body, keys: :atoms)}
+
       {:ok, %{body: body, status_code: 201}} ->
         {:ok, Poison.decode!(body, keys: :atoms)}
+
       {:ok, %{status_code: 404}} ->
         {:ok, :not_found}
+
       {:ok, %{status_code: 204}} ->
         {:ok, nil}
+
       {:ok, %{status_code: 400}} ->
         {:error, :malformed_request}
+
       {:ok, %{body: body}} = resp ->
-        IO.inspect resp
+        IO.inspect(resp)
         {:error, body}
+
       _ ->
         {:error, :bad_network}
     end
@@ -140,25 +165,35 @@ defmodule PayPal.API do
     {:ok, {"XXXXXXXXXXXXXX", 32000}}
 
   """
-  @spec patch(String.t, map | list) :: {:ok, map | nil | :not_found | :no_content} | {:error, :unauthorised | :bad_network | any}
+  @spec patch(String.t(), map | list) ::
+          {:ok, map | nil | :not_found | :no_content}
+          | {:error, :unauthorised | :bad_network | any}
   def patch(url, data) do
     {:ok, data} = Poison.encode(data)
+
     case HTTPoison.patch(base_url() <> url, data, headers()) do
       {:ok, %{status_code: 401}} ->
         {:error, :unauthorised}
+
       {:ok, %{status_code: 200}} ->
         {:ok, nil}
+
       {:ok, %{body: body, status_code: 201}} ->
         {:ok, Poison.decode!(body, keys: :atoms)}
+
       {:ok, %{status_code: 404}} ->
         {:ok, :not_found}
+
       {:ok, %{status_code: 204}} ->
         {:ok, :no_content}
+
       {:ok, %{status_code: 400}} ->
         {:error, :malformed_request}
+
       {:ok, %{body: body}} = resp ->
-        IO.inspect resp
+        IO.inspect(resp)
         {:error, body}
+
       _ ->
         {:error, :bad_network}
     end
@@ -166,18 +201,26 @@ defmodule PayPal.API do
 
   @spec headers :: map
   defp headers do
-    %{"Authorization" => "Bearer #{Application.get_env(:ex_paypal, :access_token)}", "Content-Type" => "application/json"}
+    %{
+      "Authorization" => "Bearer #{Application.get_env(:ex_paypal, :access_token)}",
+      "Content-Type" => "application/json"
+    }
   end
 
-  @spec base_url :: String.t
+  @spec base_url :: String.t()
   defp base_url do
     case Application.get_env(:ex_paypal, :environment) do
-      :sandbox -> @base_url_sandbox
-      :live -> @base_url_live
-      :prod -> @base_url_live
+      :sandbox ->
+        @base_url_sandbox
+
+      :live ->
+        @base_url_live
+
+      :prod ->
+        @base_url_live
+
       _ ->
-        require Logger
-        Logger.warn "[PayPal] No `env` found in config, use `sandbox` as default."
+        Logger.warning("[PayPal] No `env` found in config, use `sandbox` as default.")
         @base_url_sandbox
     end
   end
