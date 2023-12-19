@@ -166,12 +166,12 @@ defmodule PayPal.API do
 
   @spec headers :: map
   defp headers do
-    %{"Authorization" => "Bearer #{Application.get_env(:pay_pal, :access_token)}", "Content-Type" => "application/json"}
+    %{"Authorization" => "Bearer #{Application.get_env(:ex_paypal, :access_token)}", "Content-Type" => "application/json"}
   end
 
   @spec base_url :: String.t
   defp base_url do
-    case Application.get_env(:pay_pal, :environment) do
+    case Application.get_env(:ex_paypal, :environment) do
       :sandbox -> @base_url_sandbox
       :live -> @base_url_live
       :prod -> @base_url_live
