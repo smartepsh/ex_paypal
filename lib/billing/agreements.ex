@@ -164,15 +164,23 @@ defmodule PayPal.Billing.Agreements do
   ## Examples
 
       iex> PayPal.Billing.Agreements.show(id)
-      {:ok,
-          %{create_time: "2017-05-02T08:04:20.411Z",
-            description: "Plan with regular and trial payment definitions.",
-            id: "P-3C560437P9994340RZAYE2OY",
-            links: [%{href: "https://api.sandbox.paypal.com/v1/payments/billing-plans/P-3C560437P9994340RZAYE2OY",
-               method: "GET", rel: "self"}],
-            name: "Plan with Regular and Trial Payment Definitions", state: "CREATED",
-            type: "FIXED", update_time: "2017-05-02T08:04:20.411Z"}}
-
+      {:ok, %{
+          "create_time" => "2017-05-02T08:04:20.411Z",
+          "description" => "Plan with regular and trial payment definitions.",
+          "id" => "P-3C560437P9994340RZAYE2OY",
+          "links" => [
+            %{
+              "href" => "https://api.sandbox.paypal.com/v1/payments/billing-plans/P-3C560437P9994340RZAYE2OY",
+              "method" => "GET",
+              "rel" => "self"
+             }
+          ],
+          "name" => "Plan with Regular and Trial Payment Definitions",
+          "state" => "CREATED",
+          "type" => "FIXED",
+          "update_time" => "2017-05-02T08:04:20.411Z"
+        }
+      }
   """
   @spec show(String.t()) ::
           {:ok, map | :not_found | :no_content} | {:error, :unauthorised | :bad_network | any}
@@ -382,7 +390,7 @@ defmodule PayPal.Billing.Agreements do
     case PayPal.API.get(
            "payments/billing-agreements/#{agreement_id}/transactions?start_date=#{start_date}&end_date=#{end_date}"
          ) do
-      {:ok, %{agreement_transaction_list: data}} ->
+      {:ok, %{"agreement_transaction_list" => data}} ->
         {:ok, data}
 
       error ->

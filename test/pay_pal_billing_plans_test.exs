@@ -21,21 +21,21 @@ defmodule PayPalBillingPlansTest do
                {:ok,
                 [
                   %{
-                    create_time: "2017-05-02T08:04:20.411Z",
-                    description: "Plan with regular and trial payment definitions.",
-                    id: "P-3C560437P9994340RZAYE2OY",
-                    links: [
+                    "create_time" => "2017-05-02T08:04:20.411Z",
+                    "description" => "Plan with regular and trial payment definitions.",
+                    "id" => "P-3C560437P9994340RZAYE2OY",
+                    "links" => [
                       %{
-                        href:
+                        "href" =>
                           "https://api.sandbox.paypal.com/v1/payments/billing-plans/P-3C560437P9994340RZAYE2OY",
-                        method: "GET",
-                        rel: "self"
+                        "method" => "GET",
+                        "rel" => "self"
                       }
                     ],
-                    name: "Plan with Regular and Trial Payment Definitions",
-                    state: "CREATED",
-                    type: "FIXED",
-                    update_time: "2017-05-02T08:04:20.411Z"
+                    "name" => "Plan with Regular and Trial Payment Definitions",
+                    "state" => "CREATED",
+                    "type" => "FIXED",
+                    "update_time" => "2017-05-02T08:04:20.411Z"
                   }
                 ]}
     end
@@ -108,52 +108,52 @@ defmodule PayPalBillingPlansTest do
       assert resp ==
                {:ok,
                 %{
-                  description: "Plan with regular and trial payment definitions.",
-                  merchant_preferences: %{
-                    auto_bill_amount: "YES",
-                    cancel_url: "http://www.paypal.com/cancel",
-                    initial_fail_amount_action: "CONTINUE",
-                    max_fail_attempts: "0",
-                    return_url: "http://www.paypal.com",
-                    setup_fee: %{currency: "USD", value: "1"}
+                  "description" => "Plan with regular and trial payment definitions.",
+                  "merchant_preferences" => %{
+                    "auto_bill_amount" => "YES",
+                    "cancel_url" => "http://www.paypal.com/cancel",
+                    "initial_fail_amount_action" => "CONTINUE",
+                    "max_fail_attempts" => "0",
+                    "return_url" => "http://www.paypal.com",
+                    "setup_fee" => %{"currency" => "USD", "value" => "1"}
                   },
-                  name: "Test Plan",
-                  type: "FIXED",
-                  payment_definitions: [
+                  "name" => "Test Plan",
+                  "type" => "FIXED",
+                  "payment_definitions" => [
                     %{
-                      amount: %{currency: "USD", value: "100"},
-                      cycles: "12",
-                      frequency_interval: "2",
-                      name: "Regular payment definition",
-                      type: "REGULAR",
-                      charge_models: [
+                      "amount" => %{"currency" => "USD", "value" => "100"},
+                      "cycles" => "12",
+                      "frequency_interval" => "2",
+                      "name" => "Regular payment definition",
+                      "type" => "REGULAR",
+                      "charge_models" => [
                         %{
-                          amount: %{currency: "USD", value: "10"},
-                          type: "SHIPPING",
-                          id: "CHM-67G516347U321241T4ET465A"
+                          "amount" => %{"currency" => "USD", "value" => "10"},
+                          "type" => "SHIPPING",
+                          "id" => "CHM-67G516347U321241T4ET465A"
                         },
                         %{
-                          amount: %{currency: "USD", value: "12"},
-                          type: "TAX",
-                          id: "CHM-60D809754G70990014ET465A"
+                          "amount" => %{"currency" => "USD", "value" => "12"},
+                          "type" => "TAX",
+                          "id" => "CHM-60D809754G70990014ET465A"
                         }
                       ],
-                      frequency: "Month",
-                      id: "PD-9A748277HB680373H4ET465A"
+                      "frequency" => "Month",
+                      "id" => "PD-9A748277HB680373H4ET465A"
                     }
                   ],
-                  create_time: "2017-05-07T04:25:34.324Z",
-                  id: "P-1YH704535C135734P4ET465A",
-                  links: [
+                  "create_time" => "2017-05-07T04:25:34.324Z",
+                  "id" => "P-1YH704535C135734P4ET465A",
+                  "links" => [
                     %{
-                      href:
+                      "href" =>
                         "https://api.sandbox.paypal.com/v1/payments/billing-plans/P-1YH704535C135734P4ET465A",
-                      method: "GET",
-                      rel: "self"
+                      "method" => "GET",
+                      "rel" => "self"
                     }
                   ],
-                  state: "CREATED",
-                  update_time: "2017-05-07T04:25:34.324Z"
+                  "state" => "CREATED",
+                  "update_time" => "2017-05-07T04:25:34.324Z"
                 }}
     end
   end
@@ -219,50 +219,50 @@ defmodule PayPalBillingPlansTest do
       assert resp ==
                {:ok,
                 %{
-                  create_time: "2017-05-02T08:04:20.411Z",
-                  description: "Plan with regular and trial payment definitions.",
-                  id: "P-3C560437P9994340RZAYE2OY",
-                  links: [
+                  "create_time" => "2017-05-02T08:04:20.411Z",
+                  "description" => "Plan with regular and trial payment definitions.",
+                  "id" => "P-3C560437P9994340RZAYE2OY",
+                  "links" => [
                     %{
-                      href:
+                      "href" =>
                         "https://api.sandbox.paypal.com/v1/payments/billing-plans/P-3C560437P9994340RZAYE2OY",
-                      method: "GET",
-                      rel: "self"
+                      "method" => "GET",
+                      "rel" => "self"
                     }
                   ],
-                  name: "Plan with Regular and Trial Payment Definitions",
-                  state: "CREATED",
-                  type: "FIXED",
-                  update_time: "2017-05-02T08:04:20.411Z",
-                  merchant_preferences: %{
-                    auto_bill_amount: "YES",
-                    cancel_url: "http://www.paypal.com/cancel",
-                    initial_fail_amount_action: "CONTINUE",
-                    max_fail_attempts: "0",
-                    return_url: "http://www.paypal.com",
-                    setup_fee: %{currency: "USD", value: "1"}
+                  "name" => "Plan with Regular and Trial Payment Definitions",
+                  "state" => "CREATED",
+                  "type" => "FIXED",
+                  "update_time" => "2017-05-02T08:04:20.411Z",
+                  "merchant_preferences" => %{
+                    "auto_bill_amount" => "YES",
+                    "cancel_url" => "http://www.paypal.com/cancel",
+                    "initial_fail_amount_action" => "CONTINUE",
+                    "max_fail_attempts" => "0",
+                    "return_url" => "http://www.paypal.com",
+                    "setup_fee" => %{"currency" => "USD", "value" => "1"}
                   },
-                  payment_definitions: [
+                  "payment_definitions" => [
                     %{
-                      amount: %{currency: "USD", value: "100"},
-                      charge_models: [
+                      "amount" => %{"currency" => "USD", "value" => "100"},
+                      "charge_models" => [
                         %{
-                          amount: %{currency: "USD", value: "12"},
-                          id: "CHM-8K016037XD486311FZAYE2OY",
-                          type: "TAX"
+                          "amount" => %{"currency" => "USD", "value" => "12"},
+                          "id" => "CHM-8K016037XD486311FZAYE2OY",
+                          "type" => "TAX"
                         },
                         %{
-                          amount: %{currency: "USD", value: "10"},
-                          id: "CHM-0G830639S6488053MZAYE2OY",
-                          type: "SHIPPING"
+                          "amount" => %{"currency" => "USD", "value" => "10"},
+                          "id" => "CHM-0G830639S6488053MZAYE2OY",
+                          "type" => "SHIPPING"
                         }
                       ],
-                      cycles: "12",
-                      frequency: "Month",
-                      frequency_interval: "2",
-                      id: "PD-88G018863E918211XZAYE2OY",
-                      name: "Regular payment definition",
-                      type: "REGULAR"
+                      "cycles" => "12",
+                      "frequency" => "Month",
+                      "frequency_interval" => "2",
+                      "id" => "PD-88G018863E918211XZAYE2OY",
+                      "name" => "Regular payment definition",
+                      "type" => "REGULAR"
                     }
                   ]
                 }}

@@ -15,13 +15,13 @@ defmodule PayPal.Billing.Plans do
 
       iex> PayPal.Billing.Plans.list
       {:ok,
-          [%{create_time: "2017-05-02T08:04:20.411Z",
-            description: "Plan with regular and trial payment definitions.",
-            id: "P-3C560437P9994340RZAYE2OY",
-            links: [%{href: "https://api.sandbox.paypal.com/v1/payments/billing-plans/P-3C560437P9994340RZAYE2OY",
-               method: "GET", rel: "self"}],
-            name: "Plan with Regular and Trial Payment Definitions", state: "CREATED",
-            type: "FIXED", update_time: "2017-05-02T08:04:20.411Z"}]}
+          [%{"create_time" => "2017-05-02T08:04:20.411Z",
+            "description" => "Plan with regular and trial payment definitions.",
+            "id" => "P-3C560437P9994340RZAYE2OY",
+            "links" => [%{href: "https://api.sandbox.paypal.com/v1/payments/billing-plans/P-3C560437P9994340RZAYE2OY",
+               "method" => "GET", rel: "self"}],
+            "name" => "Plan with Regular and Trial Payment Definitions", state: "CREATED",
+            "type" => "FIXED", update_time: "2017-05-02T08:04:20.411Z"}]}
 
 
   """
@@ -35,7 +35,7 @@ defmodule PayPal.Billing.Plans do
       {:ok, :not_found} ->
         {:ok, nil}
 
-      {:ok, %{plans: plans}} ->
+      {:ok, %{"plans" => plans}} ->
         {:ok, plans}
 
       error ->
@@ -56,13 +56,17 @@ defmodule PayPal.Billing.Plans do
 
       iex> PayPal.Billing.Plans.show(id)
       {:ok,
-          %{create_time: "2017-05-02T08:04:20.411Z",
-            description: "Plan with regular and trial payment definitions.",
-            id: "P-3C560437P9994340RZAYE2OY",
-            links: [%{href: "https://api.sandbox.paypal.com/v1/payments/billing-plans/P-3C560437P9994340RZAYE2OY",
-               method: "GET", rel: "self"}],
-            name: "Plan with Regular and Trial Payment Definitions", state: "CREATED",
-            type: "FIXED", update_time: "2017-05-02T08:04:20.411Z"}}
+          "%{create_time" => "2017-05-02T08:04:20.411Z",
+            "description" => "Plan with regular and trial payment definitions.",
+            "id" => "P-3C560437P9994340RZAYE2OY",
+            "links" => [%{
+            "href" => "https://api.sandbox.paypal.com/v1/payments/billing-plans/P-3C560437P9994340RZAYE2OY",
+            "method" => "GET",
+            "rel" => "self"
+            }],
+            "name" => "Plan with Regular and Trial Payment Definitions",
+            "state" => "CREATED",
+            "type" => "FIXED", "update_time" => "2017-05-02T08:04:20.411Z"}}
 
   """
   @spec show(String.t()) ::
@@ -95,46 +99,46 @@ defmodule PayPal.Billing.Plans do
   Example hash:
 
     %{
-      name: "Plan with Regular and Trial Payment Definitions",
-      description: "Plan with regular and trial payment definitions.",
-      type: "FIXED",
-      payment_definitions: [%{
-        name: "Regular payment definition",
-        type: "REGULAR",
-        frequency: "MONTH",
-        frequency_interval: "2",
-        amount: %{
-          value: "100",
-          currency: "USD"
+      "name" => "Plan with Regular and Trial Payment Definitions",
+      "description" => "Plan with regular and trial payment definitions.",
+      "type" => "FIXED",
+      "payment_definitions" => [%{
+        "name" => "Regular payment definition",
+        "type" => "REGULAR",
+        "frequency" => "MONTH",
+        "frequency_interval" => "2",
+        "amount" => %{
+          "value" => "100",
+          "currency" => "USD"
         },
-        cycles: "12",
-        charge_models: [
+        "cycles" => "12",
+        "charge_models" => [
           %{
-            type: "SHIPPING",
-            amount: %{
-              value: "10",
-              currency: "USD"
+            "type" => "SHIPPING",
+            "amount" => %{
+              "value" => "10",
+              "currency" => "USD"
             }
           },
           %{
-            type: "TAX",
-            amount: %{
-              value: "12",
-              currency: "USD"
+            "type" => "TAX",
+            "amount" => %{
+              "value" => "12",
+              "currency" => "USD"
             }
           }
         ]
       }],
-      merchant_preferences: %{
-        setup_fee: %{
-          value: "1",
-          currency: "USD"
+      "merchant_preferences" => %{
+        "setup_fee" => %{
+          "value" => "1",
+          "currency" => "USD"
         },
-        return_url: "http://www.paypal.com",
-        cancel_url: "http://www.paypal.com/cancel",
-        auto_bill_amount: "YES",
-        initial_fail_amount_action: "CONTINUE",
-        max_fail_attempts: "0"
+        "return_url" => "http://www.paypal.com",
+        "cancel_url" => "http://www.paypal.com/cancel",
+        "auto_bill_amount" => "YES",
+        "initial_fail_amount_action" => "CONTINUE",
+        "max_fail_attempts" => "0"
       }
     }
 
