@@ -1,6 +1,5 @@
 defmodule PayPal.Token.Refresher do
   use GenServer
-
   require Logger
 
   def start_link(_args) do
@@ -13,14 +12,18 @@ defmodule PayPal.Token.Refresher do
     {:ok, args, {:continue, nil}}
   end
 
-  def handle_continue(_, _state) do
-    case refresh_token() do
-      {:ok, seconds} ->
-        send_next_signal(seconds)
-        {:noreply, seconds}
+  def handle_continue(_, state) do
+    if Application.get_env(:ex_paypal, :environment) in [:test, :sandbox] do
+      {:noreply, state}
+    else
+      case refresh_token() do
+        {:ok, seconds} ->
+          send_next_signal(seconds)
+          {:noreply, seconds}
 
-      {:error, reason} ->
-        {:stop, reason}
+        {:error, reason} ->
+          {:stop, reason}
+      end
     end
   end
 
@@ -40,7 +43,7 @@ defmodule PayPal.Token.Refresher do
     Process.send_after(self(), :refresh, seconds * 1000)
   end
 
-  def refresh_token do
+  defp refresh_token do
     case PayPal.API.get_oauth_token() do
       {:ok, {token, seconds}} ->
         Application.put_env(:ex_paypal, :access_token, token)
